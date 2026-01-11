@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praharsh Tiwari | Contact</title>
+    <meta name="description" content="Contact information for Praharsh Tiwari.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css">
+    
+    <link rel="icon" type="image/png" href="favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="favicons/favicon.svg" />
+    <link rel="shortcut icon" href="favicons/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png" />
+    <link rel="manifest" href="favicons/site.webmanifest" />
+</head>
+<body>
+
+    <header class="header-container">
+        <div class="logo-nav-wrapper">
+            <a href="index.html">
+                <img src="images/new-logo.png" alt="Praharsh Tiwari" class="logo">
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="research.html">Research</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <div class="full-screen-section content-container">
+            
+            <section class="contact-section">
+                <h2>Contact</h2>
+                <p style="margin-bottom: 2rem;">Feel free to reach out for collaborations, questions about my research, or just to connect.</p>
+                
+                <div class="contact-details">
+                    <div class="detail-item">
+                        <span class="label">Email</span>
+                        <a href="mailto:pt25a@fsu.edu" class="value link">pt25a@fsu.edu</a>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <span class="label">University</span>
+                        <span class="value">FAMU-FSU College of Engineering</span>
+                    </div>
+
+                    <div class="detail-item">
+                        <span class="label">Department</span>
+                        <span class="value">Mechanical Engineering</span>
+                    </div>
+
+                    <div class="detail-item">
+                        <span class="label">Laboratory</span>
+                        <a href="https://fcaap.fsu.edu/" target="_blank" class="value link">Florida Center for Advanced Aero-Propulsion (FCAAP)</a>
+                    </div>
+                </div>
+                
+                <div class="social-links-container">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <a href="https://linkedin.com/in/yourprofile" class="social-button" target="_blank">LinkedIn</a>
+                        <a href="https://scholar.google.com/citations?user=YOURID" class="social-button" target="_blank">Google Scholar</a>
+                        <a href="https://github.com/yourusername" class="social-button" target="_blank">GitHub</a>
+                        <a href="https://twitter.com/yourhandle" class="social-button" target="_blank">Twitter</a>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; <span id="year"></span> Praharsh Tiwari. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header-container');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

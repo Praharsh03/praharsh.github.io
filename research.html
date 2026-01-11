@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praharsh Tiwari | Research & Publications</title>
+    <meta name="description" content="Research projects and publications on Hypersonic flows, Active Flow Control, and Experimental Aerodynamics by Praharsh Tiwari.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css">
+    
+    <link rel="icon" type="image/png" href="favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="favicons/favicon.svg" />
+    <link rel="shortcut icon" href="favicons/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png" />
+    <link rel="manifest" href="favicons/site.webmanifest" />
+</head>
+<body>
+
+    <header class="header-container">
+        <div class="logo-nav-wrapper">
+            <a href="index.html">
+                <img src="images/new-logo.png" alt="Praharsh Tiwari" class="logo">
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="research.html" class="active">Research</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <div class="content-container">
+            
+            <section class="research-intro" style="padding-top: 5rem;">
+                <h2>Research Areas</h2>
+                <p>My work sits at the intersection of fundamental fluid dynamics and applied aerospace engineering. While specific methodologies remain proprietary pending publication, the following provides an overview of the core challenges I am addressing.</p>
+            </section>
+
+            <section class="research-project" style="margin-top: 3rem;">
+                <article>
+                    <h3>Physics of High-Speed Flows</h3>
+                    <p><b>The Challenge:</b> In supersonic and hypersonic regimes, shock-wave/boundary-layer interactions (SWBLI) induce severe flow separation, unsteady loading, and total pressure loss. Understanding the unsteadiness of these interactions is critical for vehicle survivability and performance.</p>
+                    <p><b>My Focus:</b> I utilize the facilities at FCAAP to experimentally characterize these unsteady flow fields. By leveraging optical diagnostics (Schlieren, PIV) and high-frequency sensing, I aim to decouple the mechanisms driving flow distortion in complex inlet geometries.</p>
+                </article>
+            </section>
+            
+            <section class="research-project" style="margin-top: 3rem;">
+                <article>
+                    <h3>Active Flow & Aeroacoustics Control</h3>
+                    <p><b>The Challenge:</b> Traditional passive control methods often incur weight and drag penalties. As aerospace vehicles push primarily towards higher speeds, managing the aeroacoustic footprint and flow separation requires dynamic, responsive solutions.</p>
+                    <p><b>My Focus:</b> My research investigates novel Active Flow Control (AFC) architectures. The objective is to achieve high control authority over shear layer dynamics and jet noise generation mechanisms using energy-efficient actuation strategies suitable for flight integration.</p>
+                </article>
+            </section>
+            
+            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 5rem 0;">
+
+            <section class="publications-section">
+                <h2>Selected Publications</h2>
+                <ul class="academic-list">
+                    <li>
+                        <span class="year">2025</span>
+                        <div class="citation">
+                            <b>Tiwari, P.</b>, & Kumar, R. "Investigation of Shock-Boundary Layer Interaction in Hypersonic Inlets." <i>Journal of Fluid Mechanics</i> (Under Review).
+                        </div>
+                    </li>
+                    <li>
+                        <span class="year">2024</span>
+                        <div class="citation">
+                            <b>Tiwari, P.</b>, & Sugarno, M. I. "Active Flow Control Strategies for Noise Reduction in Supersonic Jets." <i>AIAA Journal</i>, Vol. 42, No. 4, pp. 123-135.
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="conferences-section" style="margin-top: 4rem;">
+                <h2>Conference Proceedings</h2>
+                <ul class="academic-list">
+                    <li>
+                        <span class="year">2024</span>
+                        <div class="citation">
+                            <b>Tiwari, P.</b>, & Advisor, A. "Experimental Analysis of Scramjet Intake Geometries." <i>AIAA SciTech Forum</i>, Orlando, FL.
+                        </div>
+                    </li>
+                    <li>
+                        <span class="year">2023</span>
+                        <div class="citation">
+                            <b>Tiwari, P.</b>, Colleague, B., & Kumar, R. "Feedback Control Loops for High-Speed Flows." <i>National Aerospace Conference</i>, IIT Kanpur.
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; <span id="year"></span> Praharsh Tiwari. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header-container');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

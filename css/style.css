@@ -2,25 +2,21 @@
    1. VARIABLES & RESET
    ========================================= */
 :root {
-  --text-color: #1a1a1a;        /* Soft black */
-  --background-color: #fdfbf7;  /* Premium paper off-white */
-  --accent-color: #555;         /* Secondary text */
+  --text-color: #1a1a1a;        
+  --background-color: #fdfbf7;  
+  --accent-color: #555;         
   --link-color: #333;
   --link-hover: #000;
   --border-color: #e0e0e0;
   --font-main: 'Cormorant Garamond', serif;
+  
+  --h2-size: clamp(1.8rem, 4vw, 2.4rem); 
+  --p-size: clamp(1.1rem, 2vw, 1.25rem);
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-html {
-  scroll-behavior: smooth;
-  /* NO scroll-snap-type enabled, allowing for JS soft magnet effect */
-}
+html { scroll-behavior: smooth; font-size: 16px; }
 
 body {
   font-family: var(--font-main);
@@ -29,8 +25,9 @@ body {
   background-color: var(--background-color);
   margin: 0;
   font-weight: 500;
-  font-size: 1.25rem; 
+  font-size: var(--p-size); 
   padding-top: 0; 
+  overflow-x: hidden; 
 }
 
 /* =========================================
@@ -40,22 +37,33 @@ body {
     min-height: 100vh;
     width: 100%;
     
-    /* Center content vertically & horizontally */
     display: flex;
     flex-direction: column;
+    
+    /* RESTORED: Center content vertically */
     justify-content: center; 
     align-items: center; 
     
     position: relative;
-    padding-top: 100px; 
     padding-bottom: 50px;
+}
+
+/* SPECIAL: About View must account for the HUGE logo */
+#about-view {
+    /* 250px logo + 30px breathing room */
+    padding-top: 190px; 
+}
+
+/* SPECIAL: Education View appears when logo is shrunk/gone, so less padding */
+#education-view {
+    padding-top: 80px; 
 }
 
 /* =========================================
    3. HEADER & NAVIGATION
    ========================================= */
 .header-container {
-  padding: 0.5rem 3% 2rem; 
+  padding: 1rem 3% 0; /* Minimized bottom padding */
   background-color: transparent; 
   position: fixed; 
   top: 0;
@@ -63,31 +71,36 @@ body {
   width: 100%;
   z-index: 1000;
   transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  height: auto;
 }
 
 .logo-nav-wrapper {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  
+  /* Align items to the Top to handle the tall logo */
+  align-items: flex-start; 
+  
   width: 100%; 
-  max-width: 100%; 
-  margin: 0;
+  max-width: 1400px;
+  margin: 0 auto;
   transition: all 0.5s ease;
 }
 
+/* DYNAMIC LOGO SIZING */
 .logo {
-  height: 250px;
+  height: 250px; /* Desktop Size */
   width: auto;
   opacity: 1;
   margin-right: auto; 
   transition: all 0.5s ease;
   overflow: hidden;
-  margin-top: -5px; 
+  margin-top: -10px; 
+  z-index: 1001; 
+  position: relative;
 }
 
-.logo:hover {
-  opacity: 0.8;
-}
+.logo:hover { opacity: 0.8; }
 
 /* Scrolled State */
 .header-container.scrolled {
@@ -113,7 +126,7 @@ body {
 
 /* Navigation */
 nav {
-  padding-top: 10px; 
+  padding-top: 15px; /* Visual alignment with logo text */
 }
 
 nav ul {
@@ -137,9 +150,7 @@ nav a {
 }
 
 nav a:hover,
-nav a.active {
-  color: var(--link-hover);
-}
+nav a.active { color: var(--link-hover); }
 
 nav a::after {
   content: '';
@@ -153,9 +164,31 @@ nav a::after {
 }
 
 nav a:hover::after,
-nav a.active::after {
-  width: 100%;
+nav a.active::after { width: 100%; }
+
+/* --- HAMBURGER MENU --- */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    z-index: 1001; 
+    position: relative;
+    padding: 10px;
+    margin-top: 5px;
 }
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 2px;
+    margin: 6px auto;
+    transition: all 0.3s ease-in-out;
+    background-color: var(--text-color);
+}
+
+.hamburger.active .bar:nth-child(2) { opacity: 0; }
+.hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
 
 /* =========================================
    4. LAYOUT UTILITIES
@@ -168,7 +201,7 @@ nav a.active::after {
 }
 
 h2 {
-  font-size: 2.4rem;
+  font-size: var(--h2-size);
   font-weight: 700;
   margin-bottom: 1.5rem;
   position: relative;
@@ -183,12 +216,10 @@ h2::after {
   background: var(--text-color);
   margin-top: 10px;
   opacity: 0.8;
-  /* Center underline for centered sections */
   margin-left: auto;
   margin-right: auto;
 }
 
-/* Reset heading alignment for left-aligned contexts */
 .about-content h2::after,
 .research-intro h2::after,
 .publications-section h2::after,
@@ -200,9 +231,7 @@ h2::after {
 /* =========================================
    5. ABOUT SECTION
    ========================================= */
-.about-section {
-  padding: 0; 
-}
+.about-section { padding: 0; }
 
 .about-container {
   display: flex;
@@ -230,7 +259,10 @@ h2::after {
   object-position: 50% 20%; 
   border-radius: 50%;
   box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
+  transition: transform 0.3s ease;
 }
+
+.portrait:hover { transform: scale(1.02); }
 
 .affiliation-logos {
   display: flex;
@@ -255,27 +287,20 @@ h2::after {
   transform: scale(1.05);
 }
 
-.about-content {
-  flex: 1;
-}
-
-.about-content h2 {
-  margin-top: 0;
-}
+.about-content { flex: 1; }
+.about-content h2 { margin-top: 0; }
 
 .about-content p {
   text-align: justify;
   text-justify: inter-word;
   margin-bottom: 1.5rem;
-  font-size: 1.25rem;
+  font-size: var(--p-size);
 }
 
 /* =========================================
    6. EDUCATION
    ========================================= */
-.education-section {
-  padding: 2rem 0 0.5rem; 
-}
+.education-section { padding: 2rem 0 0.5rem; }
 
 .timeline {
   margin-top: 2rem;
@@ -301,7 +326,7 @@ h2::after {
 }
 
 .timeline-item h3 {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 600;
   margin-bottom: 0.4rem;
 }
@@ -372,7 +397,7 @@ footer {
    ========================================= */
 .scroll-prompt {
     position: absolute; 
-    bottom: 10px;
+    bottom: 5px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -410,10 +435,7 @@ footer {
 /* =========================================
    10. ACADEMIC PUBLICATIONS LIST
    ========================================= */
-.academic-list {
-    list-style: none;
-    margin-top: 2rem;
-}
+.academic-list { list-style: none; margin-top: 2rem; }
 
 .academic-list li {
     display: flex;
@@ -430,18 +452,12 @@ footer {
     text-align: right;
 }
 
-.academic-list .citation {
-    font-size: 1.15rem;
-    color: var(--text-color);
-}
+.academic-list .citation { font-size: 1.15rem; color: var(--text-color); }
 
 /* =========================================
-   11. CONTACT PAGE STYLES (COMPACT)
+   11. CONTACT PAGE STYLES
    ========================================= */
-.contact-section {
-    text-align: center; 
-    width: 100%;
-}
+.contact-section { text-align: center; width: 100%; }
 
 .contact-details {
     margin: 1.5rem 0 2.5rem; 
@@ -450,10 +466,7 @@ footer {
     align-items: center; 
 }
 
-.detail-item {
-    margin-bottom: 0.8rem; 
-    font-size: 1.15rem;
-}
+.detail-item { margin-bottom: 0.8rem; font-size: 1.15rem; }
 
 .detail-item .label {
     display: block;
@@ -465,9 +478,7 @@ footer {
     font-weight: 600;
 }
 
-.detail-item .value {
-    color: var(--text-color);
-}
+.detail-item .value { color: var(--text-color); }
 
 .detail-item .value.link {
     text-decoration: none;
@@ -475,14 +486,9 @@ footer {
     transition: all 0.3s ease;
 }
 
-.detail-item .value.link:hover {
-    border-bottom-color: var(--text-color);
-}
+.detail-item .value.link:hover { border-bottom-color: var(--text-color); }
 
-.social-links-container h3 {
-    margin-bottom: 1rem;
-    font-size: 1.6rem;
-}
+.social-links-container h3 { margin-bottom: 1rem; font-size: 1.6rem; }
 
 .social-links {
     display: flex;
@@ -511,7 +517,7 @@ footer {
 }
 
 /* =========================================
-   12. PRELOADER (AEROSPACE QUOTES)
+   12. PRELOADER & ANIMATIONS
    ========================================= */
 #preloader {
     position: fixed;
@@ -529,37 +535,22 @@ footer {
     visibility: visible;
 }
 
-#preloader.fade-out {
-    opacity: 0;
-    visibility: hidden;
-}
+#preloader.fade-out { opacity: 0; visibility: hidden; }
 
-.quote-wrapper {
-    max-width: 800px;
-    padding: 0 2rem;
-    text-align: center;
-}
+.quote-wrapper { max-width: 800px; padding: 0 2rem; text-align: center; }
 
 #quote-text {
-    font-size: 1.8rem;
+    font-size: var(--h2-size); 
     font-style: italic;
     font-weight: 500;
     color: var(--text-color);
     margin-bottom: 1.5rem;
     line-height: 1.4;
-    
-    /* Center ensures best readability for poetry/quotes */
     text-align: center; 
 }
 
-/* NEW: Word Wrapper Fix */
-/* Ensures letters inside a word stay together */
-.word {
-    display: inline-block;
-    white-space: nowrap;
-}
+.word { display: inline-block; white-space: nowrap; }
 
-/* Individual Letter Styling */
 .letter {
     opacity: 0;
     display: inline-block; 
@@ -578,18 +569,9 @@ footer {
     animation: author-appear 1s ease-out forwards 1s; 
 }
 
-/* Keyframes */
 @keyframes letter-appear {
-    from {
-        opacity: 0;
-        filter: blur(4px);
-        transform: scale(1.1);
-    }
-    to {
-        opacity: 1;
-        filter: blur(0);
-        transform: scale(1);
-    }
+    from { opacity: 0; filter: blur(4px); transform: scale(1.1); }
+    to { opacity: 1; filter: blur(0); transform: scale(1); }
 }
 
 @keyframes author-appear {
@@ -600,35 +582,74 @@ footer {
 /* =========================================
    13. RESPONSIVE UTILITIES
    ========================================= */
+
+/* --- TABLETS (769px to 1024px) --- */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .logo { height: 150px; }
+  
+  /* Reset special paddings for tablet sizes */
+  #about-view { padding-top: 180px; }
+  #education-view { padding-top: 80px; }
+  
+  .about-container { gap: 3rem; padding: 0 1rem; }
+  .profile-column { width: 220px; }
+  .portrait { width: 180px; height: 180px; }
+  nav ul { gap: 1.5rem; }
+}
+
+/* --- MOBILE (Up to 768px) --- */
 @media (max-width: 768px) {
-  /* Reset full screen to normal scrolling on mobile */
-  .full-screen-section { min-height: auto; padding-top: 100px; padding-bottom: 50px; }
+  .logo { height: 80px; margin-right: 0; margin-top: 0; }
   
-  .header-container { padding: 1.5rem; }
-  .logo-nav-wrapper { flex-direction: column; gap: 1rem; align-items: center; } 
-  .logo { height: 70px; margin-right: 0; }
-  nav { padding-top: 0; }
-  nav ul { gap: 1.5rem; font-size: 0.9rem; }
+  /* Mobile padding reset */
+  #about-view { padding-top: 120px; }
+  #education-view { padding-top: 80px; }
+  
+  .full-screen-section { 
+      min-height: auto; 
+      padding-bottom: 50px; 
+      justify-content: flex-start;
+  }
 
-  .about-container { flex-direction: column; gap: 2rem; }
-  .profile-column { width: 100%; margin-bottom: 1rem; }
-  .affiliation-logos { flex-direction: row; justify-content: center; }
-  .content-container { padding: 0 1.5rem; }
-  .scroll-prompt { bottom: 10px; }
-
-  /* Academic List Mobile */
-  .academic-list li {
+  .hamburger { display: block; margin-top: 0; }
+  
+  .logo-nav-wrapper { 
+      align-items: center; 
+      justify-content: space-between; 
+  }
+  
+  nav {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100vh;
+      background-color: var(--background-color);
+      display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none; 
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      z-index: 1000; 
+      padding-top: 0;
   }
-  .academic-list .year {
-      text-align: left;
-      width: 100%;
-      font-size: 0.9rem;
-  }
+
+  nav.active { opacity: 1; visibility: visible; pointer-events: auto; }
   
-  /* Preloader Text */
-  #quote-text {
-      font-size: 1.4rem;
+  nav ul { 
+      flex-direction: column; 
+      gap: 3rem; 
+      font-size: 1.5rem; 
+      text-align: center;
   }
+
+  .about-container { flex-direction: column; gap: 2rem; text-align: center; }
+  .profile-column { width: 100%; margin-bottom: 1rem; }
+  .affiliation-logos { flex-direction: row; justify-content: center; gap: 2rem;}
+  .about-content p { text-align: left; text-justify: auto; }
+  h2::after { margin-left: auto; margin-right: auto; }
+  .about-content h2::after { margin-left: auto; margin-right: auto; }
+  .content-container { padding: 0 1.5rem; }
+  .scroll-prompt { bottom: 20px; }
 }

@@ -3,22 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Praharsh Tiwari | Home</title>
+    <title>Praharsh Tiwari | Hypersonics & Experimental Aerodynamics</title>
     <meta name="description" content="Portfolio of Praharsh Tiwari, Ph.D. student at FCAAP/FSU specializing in experimental aerodynamics, active flow control, and high-speed regimes.">
-    
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="css/style.css">
     
     <link rel="icon" href="favicons/favicon.ico" sizes="any" />
-    
     <link rel="icon" type="image/png" href="favicons/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="favicons/favicon.svg" />
     <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png" />
     <link rel="manifest" href="favicons/site.webmanifest" />
 </head>
 <body>
-
     <div id="preloader">
         <div class="quote-wrapper">
             <p id="quote-text"></p>
@@ -31,10 +26,16 @@
             <a href="./">
                 <img src="images/new-logo.png" alt="Praharsh Tiwari" class="logo">
             </a>
+            
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+
             <nav>
                 <ul>
                     <li><a href="./" class="active">Home</a></li>
-                    
                     <li><a href="research/">Research</a></li>
                     <li><a href="contact/">Contact</a></li>
                 </ul>
@@ -46,10 +47,8 @@
         <div class="full-screen-section" id="about-view">
             <section class="about-section">
                 <div class="about-container">
-                    
                     <div class="profile-column">
                         <img src="images/portrait.jpg" alt="Portrait of Praharsh Tiwari" class="portrait">
-                        
                         <div class="affiliation-logos">
                             <a href="https://fcaap.fsu.edu/" target="_blank"> 
                                 <img src="images/lab-logo.png" alt="FCAAP Logo" class="lab-logo">
@@ -59,18 +58,14 @@
                             </a>
                         </div>
                     </div>
-
                     <div class="about-content">
                         <h2>About</h2>
                         <p>I am Praharsh Tiwari, a <b>first year doctoral student in Mechanical Engineering</b> under the advisorship of <b>Prof. Rajan Kumar</b> at the <b>Florida Center for Advanced Aero-Propulsion (FCAAP), FAMU-FSU College of Engineering, Florida A&M - Florida State University.</b></p>
-
                         <p>My research explores the cutting edge of <b>Experimental Aerodynamics</b>, with a <b>particular focus on supersonic and hypersonic flows</b>, and the science of <b>active flow and noise control in high-speed regimes</b>. I’m fascinated by the elegant violence of air moving faster than sound, and I aim to understand and harness its complexity—both in the lab and in the sky.</p>
-                            
                         <p>At the intersection of experimentation and control, my work seeks to answer critical questions in high-speed aerodynamics and contribute to the technologies that will shape the future of aerospace systems.</p>
                     </div>
                 </div>
             </section>
-
             <div class="scroll-prompt">
                 <span>Scroll</span>
                 <div class="scroll-line"></div>
@@ -95,7 +90,6 @@
                     </div>
                 </div>
             </section>
-
             <section class="cv-section">
                 <div class="content-container">
                     <div class="cv-download">
@@ -113,14 +107,21 @@
     
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
+        
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('nav');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+        document.querySelectorAll('nav a').forEach(n => n.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }));
 
-    <script>
-        // Header & Scroll Prompt Logic
         window.addEventListener('scroll', function() {
             const header = document.querySelector('.header-container');
             const scrollPrompt = document.querySelector('.scroll-prompt');
-            
             if (window.scrollY > 50) {
                 header.classList.add('scrolled');
                 if(scrollPrompt) { scrollPrompt.style.opacity = '0'; scrollPrompt.style.visibility = 'hidden'; }
@@ -129,17 +130,14 @@
                 if(scrollPrompt) { scrollPrompt.style.opacity = '1'; scrollPrompt.style.visibility = 'visible'; }
             }
         });
-
-        // Soft Magnet Scroll Logic
+        
         let isScrolling;
         const sections = document.querySelectorAll('.full-screen-section');
-
         window.addEventListener('scroll', function() {
             window.clearTimeout(isScrolling);
             isScrolling = setTimeout(function() {
                 let closestSection = null;
                 let minDistance = Infinity;
-                
                 sections.forEach(section => {
                     const rect = section.getBoundingClientRect();
                     const distance = Math.abs(rect.top); 
@@ -148,22 +146,16 @@
                         closestSection = section;
                     }
                 });
-
-                if (closestSection && minDistance > 5 && minDistance < 400) {
+                if (closestSection && minDistance > 5 && minDistance < 250) {
                     closestSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             }, 100); 
         }, { passive: true });
-    </script>
 
-    <script>
         const preloader = document.getElementById('preloader');
-
-        // CHECK: Has the user visited in this session?
         if (sessionStorage.getItem('visited')) {
             preloader.style.display = 'none';
         } else {
-            
             const quotes = [
                 { text: "Scientists investigate that which already is; Engineers create that which has never been.", author: "Theodore von Kármán" },
                 { text: "Turbulence is the most important unsolved problem of classical physics.", author: "Richard Feynman" },
@@ -171,53 +163,29 @@
                 { text: "The machine does not isolate man from the great problems of nature but plunges him more deeply into them.", author: "Antoine de Saint-Exupéry" },
                 { text: "Aerodynamics is the art of making air do what you want it to do.", author: "Unknown" }
             ];
-
             const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
             const quoteContainer = document.getElementById('quote-text');
             const authorContainer = document.getElementById('quote-author');
-            
-            // Clear container
             quoteContainer.innerHTML = '';
-
-            // STEP 1: Split quote into words (prevents broken words)
             const words = randomQuote.text.split(' ');
-
             words.forEach(word => {
-                // Create a wrapper for the word
                 const wordSpan = document.createElement('span');
                 wordSpan.classList.add('word');
-
-                // STEP 2: Split word into letters for animation
                 word.split('').forEach(char => {
                     const charSpan = document.createElement('span');
                     charSpan.textContent = char;
                     charSpan.classList.add('letter');
-                    
-                    // Random delay for the "twinkling" effect
                     const randomDelay = Math.random() * 1.5;
                     charSpan.style.animationDelay = `${randomDelay}s`;
-                    
                     wordSpan.appendChild(charSpan);
                 });
-
-                // Append the word group to the main text
                 quoteContainer.appendChild(wordSpan);
-                
-                // Add a space after the word
                 quoteContainer.appendChild(document.createTextNode(' '));
             });
-
-            // Set Author
             authorContainer.textContent = `— ${randomQuote.author}`;
-
-            // Fade Out
             window.addEventListener('load', () => {
                 setTimeout(() => { preloader.classList.add('fade-out'); }, 3500);
-                setTimeout(() => { 
-                    preloader.style.display = 'none'; 
-                    // Mark session as visited
-                    sessionStorage.setItem('visited', 'true');
-                }, 4500); 
+                setTimeout(() => { preloader.style.display = 'none'; sessionStorage.setItem('visited', 'true'); }, 4500); 
             });
         }
     </script>

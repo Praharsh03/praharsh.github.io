@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Praharsh Tiwari | Hypersonics & Experimental Aerodynamics</title>
-    <meta name="description" content="Portfolio of Praharsh Tiwari, Ph.D. student at FCAAP/FSU specializing in experimental aerodynamics, active flow control, and high-speed regimes.">
+    <title>Praharsh Tiwari | Home</title>
+    <meta name="description" content="Portfolio of Praharsh Tiwari, Ph.D. student at FCAAP/FSU.">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    
     <link rel="icon" href="favicons/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" href="favicons/favicon-96x96.png" sizes="96x96" />
-    <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png" />
-    <link rel="manifest" href="favicons/site.webmanifest" />
 </head>
 <body>
     <div id="preloader">
@@ -60,7 +57,7 @@
                     </div>
                     <div class="about-content">
                         <h2>About</h2>
-                        <p>I am Praharsh Tiwari, a <b>first year doctoral student in Mechanical Engineering</b> under the advisorship of <b>Prof. Rajan Kumar</b> at the <b>Florida Center for Advanced Aero-Propulsion (FCAAP), FAMU-FSU College of Engineering, Florida A&M - Florida State University.</b></p>
+                        <p>I am Praharsh Tiwari, a <b>first-year doctoral student in Mechanical Engineering</b> at the <b>Florida Center for Advanced Aero-Propulsion (FCAAP), FAMU-FSU College of Engineering, Florida A&M - Florida State University.</b></p>
                         <p>My research explores the cutting edge of <b>Experimental Aerodynamics</b>, with a <b>particular focus on supersonic and hypersonic flows</b>, and the science of <b>active flow and noise control in high-speed regimes</b>. I’m fascinated by the elegant violence of air moving faster than sound, and I aim to understand and harness its complexity—both in the lab and in the sky.</p>
                         <p>At the intersection of experimentation and control, my work seeks to answer critical questions in high-speed aerodynamics and contribute to the technologies that will shape the future of aerospace systems.</p>
                     </div>
@@ -93,7 +90,7 @@
             <section class="cv-section">
                 <div class="content-container">
                     <div class="cv-download">
-                        <p>For a complete overview of my qualifications, please download my CV:</p>
+                        <p>For a complete overview of my qualifications, please view/download my CV:</p>
                         <a href="docs/cv_praharsh_tiwari.pdf" class="cv-button" target="_blank">Download CV</a>
                     </div>
                 </div>
@@ -107,7 +104,6 @@
     
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
-        
         const hamburger = document.querySelector('.hamburger');
         const navMenu = document.querySelector('nav');
         hamburger.addEventListener('click', () => {
@@ -118,42 +114,44 @@
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
         }));
-
+        
+        // Header scroll logic
         window.addEventListener('scroll', function() {
             const header = document.querySelector('.header-container');
-            const scrollPrompt = document.querySelector('.scroll-prompt');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-                if(scrollPrompt) { scrollPrompt.style.opacity = '0'; scrollPrompt.style.visibility = 'hidden'; }
-            } else {
-                header.classList.remove('scrolled');
-                if(scrollPrompt) { scrollPrompt.style.opacity = '1'; scrollPrompt.style.visibility = 'visible'; }
+            if(window.innerWidth <= 1024) {
+                if (window.scrollY > 50) header.classList.add('scrolled');
+                else header.classList.remove('scrolled');
             }
         });
-        
+
+        // SOFT MAGNET SCROLL (DISABLED ON MOBILE)
         let isScrolling;
-        const sections = document.querySelectorAll('.full-screen-section');
         window.addEventListener('scroll', function() {
+            // Check screen width: if smaller than 1024px, stop here.
+            if(window.innerWidth <= 1024) return;
+
             window.clearTimeout(isScrolling);
             isScrolling = setTimeout(function() {
-                let closestSection = null;
-                let minDistance = Infinity;
-                sections.forEach(section => {
-                    const rect = section.getBoundingClientRect();
-                    const distance = Math.abs(rect.top); 
-                    if (distance < minDistance) {
-                        minDistance = distance;
-                        closestSection = section;
+                const educationSection = document.getElementById('education-view');
+                const aboutSection = document.getElementById('about-view');
+                
+                if (educationSection && aboutSection) {
+                    const eduRect = educationSection.getBoundingClientRect();
+                    const aboutRect = aboutSection.getBoundingClientRect();
+                    
+                    if (eduRect.top < window.innerHeight / 1.5 && eduRect.top > 0) {
+                        educationSection.scrollIntoView({ behavior: 'smooth' });
                     }
-                });
-                if (closestSection && minDistance > 5 && minDistance < 250) {
-                    closestSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    if (aboutRect.top > -window.innerHeight / 2 && aboutRect.top < 0) {
+                        aboutSection.scrollIntoView({ behavior: 'smooth' });
+                    }
                 }
-            }, 100); 
+            }, 60); 
         }, { passive: true });
 
-        // --- NEW QUOTES SECTION ---
+        // Preloader Logic
         const preloader = document.getElementById('preloader');
+        const quoteWrapper = document.querySelector('.quote-wrapper');
         if (sessionStorage.getItem('visited')) {
             preloader.style.display = 'none';
         } else {
@@ -168,16 +166,14 @@
             const quoteContainer = document.getElementById('quote-text');
             const authorContainer = document.getElementById('quote-author');
             quoteContainer.innerHTML = '';
-            const words = randomQuote.text.split(' ');
-            words.forEach(word => {
+            randomQuote.text.split(' ').forEach(word => {
                 const wordSpan = document.createElement('span');
                 wordSpan.classList.add('word');
                 word.split('').forEach(char => {
                     const charSpan = document.createElement('span');
                     charSpan.textContent = char;
                     charSpan.classList.add('letter');
-                    const randomDelay = Math.random() * 1.5;
-                    charSpan.style.animationDelay = `${randomDelay}s`;
+                    charSpan.style.animationDelay = `${Math.random() * 1.5}s`;
                     wordSpan.appendChild(charSpan);
                 });
                 quoteContainer.appendChild(wordSpan);
@@ -185,8 +181,9 @@
             });
             authorContainer.textContent = `— ${randomQuote.author}`;
             window.addEventListener('load', () => {
-                setTimeout(() => { preloader.classList.add('fade-out'); }, 3500);
-                setTimeout(() => { preloader.style.display = 'none'; sessionStorage.setItem('visited', 'true'); }, 4500); 
+                setTimeout(() => { quoteWrapper.classList.add('hide-text'); }, 3500);
+                setTimeout(() => { preloader.classList.add('fade-out'); }, 3900);
+                setTimeout(() => { preloader.style.display = 'none'; sessionStorage.setItem('visited', 'true'); }, 4700);
             });
         }
     </script>

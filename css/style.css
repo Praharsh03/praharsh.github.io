@@ -10,6 +10,9 @@
   --border-color: #e0e0e0;
   --font-main: 'Cormorant Garamond', serif;
   
+  /* Sidebar Width Variable */
+  --sidebar-width: 300px;
+
   /* FLUID TYPOGRAPHY VARIABLES */
   --h2-size: clamp(1.8rem, 4vw, 2.4rem); 
   --p-size: clamp(1.0rem, 2.5vw, 1.25rem);
@@ -31,120 +34,78 @@ body {
   overflow-x: hidden; 
 }
 
-/* =========================================
-   2. FULL SCREEN SECTIONS (Vertical Layout)
-   ========================================= */
-.full-screen-section {
-    min-height: 100vh;
-    width: 100%;
-    
-    display: flex;
-    flex-direction: column;
-    
-    /* Center content vertically */
-    justify-content: center; 
-    align-items: center; 
-    
-    position: relative;
-    padding-bottom: 50px;
-}
-
-/* SPECIAL: Views that must clear the HUGE 250px LOGO */
-#about-view, 
-#research-view, 
-#contact-view {
-    /* Desktop: Logo is 250px. We use 260px to clear it comfortably. */
-    padding-top: 260px; 
-}
-
-/* SPECIAL: Education View (Logo is gone/shrunk here) */
-#education-view {
-    padding-top: 80px; 
+/* GLOBAL TEXT JUSTIFICATION */
+p {
+    text-align: justify;
+    text-justify: inter-word;
 }
 
 /* =========================================
-   3. HEADER & NAVIGATION
+   2. HEADER & NAVIGATION (LEFT SIDEBAR)
    ========================================= */
 .header-container {
-  padding: 1rem 3% 0; 
-  background-color: transparent; 
+  /* DESKTOP: Fixed Sidebar on the Left */
   position: fixed; 
   top: 0;
   left: 0;
-  width: 100%;
+  width: var(--sidebar-width);
+  height: 100vh; 
+  background-color: var(--background-color); 
+  border-right: none; 
+  
+  /* CENTER VERTICALLY */
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; /* This centers the Logo + Nav vertically */
+  
+  /* Removed large top padding to allow true centering */
+  padding: 0 2rem; 
   z-index: 1000;
-  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-  height: auto;
+  gap: 4rem; 
+  transition: all 0.4s ease; 
 }
 
 .logo-nav-wrapper {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start; 
-  width: 100%; 
-  max-width: 1400px;
-  margin: 0 auto;
-  transition: all 0.5s ease;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  transition: all 0.4s ease;
 }
 
-/* DYNAMIC LOGO SIZING */
+/* LOGO STYLING */
 .logo {
-  height: 250px; /* Desktop Size */
-  width: auto;
+  width: 100%; 
+  max-width: 220px; 
+  height: auto; 
   opacity: 1;
-  margin-right: auto; 
-  transition: all 0.5s ease;
-  overflow: hidden;
-  margin-top: -10px; 
-  z-index: 1001; 
-  position: relative;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .logo:hover { opacity: 0.8; }
 
-/* Scrolled State */
-.header-container.scrolled {
-  padding: 0.8rem 3%; 
-  background-color: rgba(253, 251, 247, 0.6); 
-  backdrop-filter: blur(12px); 
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05); 
-}
-
-.header-container.scrolled .logo-nav-wrapper {
-  align-items: center; 
-  justify-content: center; 
-}
-
-.header-container.scrolled .logo {
-  height: 0;
-  width: 0;
-  opacity: 0;
-  margin: 0;
-  padding: 0;
-}
-
-/* Navigation */
+/* NAV STYLING */
 nav {
-  padding-top: 15px; 
+  margin-top: 1rem;
 }
 
 nav ul {
   display: flex;
-  gap: 2.5rem;
+  flex-direction: column; 
+  gap: 2rem;
   list-style: none;
-  margin: 0;
-  padding: 0;
+  text-align: center;
 }
 
 nav a {
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 600;
   color: var(--link-color);
   text-decoration: none;
   position: relative;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
   padding-bottom: 5px;
   transition: color 0.3s ease;
 }
@@ -158,7 +119,8 @@ nav a::after {
   width: 0;
   height: 1px;
   bottom: 0;
-  left: 0;
+  left: 50%; 
+  transform: translateX(-50%);
   background-color: var(--link-hover);
   transition: width 0.3s ease;
 }
@@ -166,28 +128,36 @@ nav a::after {
 nav a:hover::after,
 nav a.active::after { width: 100%; }
 
-/* --- HAMBURGER MENU --- */
-.hamburger {
-    display: none;
-    cursor: pointer;
-    z-index: 1001; 
+/* Hamburger is hidden on Desktop */
+.hamburger { display: none; }
+
+
+/* =========================================
+   3. MAIN CONTENT (OFFSET TO RIGHT)
+   ========================================= */
+main {
+    /* Push content to the right of the sidebar */
+    margin-left: var(--sidebar-width); 
+    width: calc(100% - var(--sidebar-width));
+    min-height: 100vh;
+}
+
+.full-screen-section {
+    min-height: 100vh;
+    width: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    
     position: relative;
-    padding: 10px;
-    margin-top: 5px;
+    padding: 4rem; 
 }
 
-.bar {
-    display: block;
-    width: 25px;
-    height: 2px;
-    margin: 6px auto;
-    transition: all 0.3s ease-in-out;
-    background-color: var(--text-color);
+#about-view, #research-view, #contact-view, #education-view {
+    padding-top: 4rem; 
 }
-
-.hamburger.active .bar:nth-child(2) { opacity: 0; }
-.hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-.hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
 
 /* =========================================
@@ -196,7 +166,6 @@ nav a.active::after { width: 100%; }
 .content-container {
   max-width: 900px;
   margin: 0 auto;
-  padding: 0 2rem;
   width: 100%;
 }
 
@@ -228,6 +197,7 @@ h2::after {
     margin-right: 0;
 }
 
+
 /* =========================================
    5. ABOUT SECTION
    ========================================= */
@@ -235,11 +205,10 @@ h2::after {
 
 .about-container {
   display: flex;
-  gap: 5rem;             
+  gap: 4rem;             
   align-items: center; 
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
 }
 
 .profile-column {
@@ -253,8 +222,8 @@ h2::after {
 }
 
 .portrait {
-  width: 200px;
-  height: 200px;
+  width: 220px;
+  height: 220px;
   object-fit: cover;
   object-position: 50% 20%; 
   border-radius: 50%;
@@ -289,13 +258,6 @@ h2::after {
 
 .about-content { flex: 1; }
 .about-content h2 { margin-top: 0; }
-
-.about-content p {
-  text-align: justify;
-  text-justify: inter-word;
-  margin-bottom: 1.5rem;
-  font-size: var(--p-size);
-}
 
 /* =========================================
    6. EDUCATION
@@ -347,18 +309,15 @@ h2::after {
 }
 
 /* =========================================
-   7. CV DOWNLOAD
+   7. CV DOWNLOAD & FOOTER
    ========================================= */
 .cv-section {
   padding: 1rem 0 2rem; 
   text-align: center;
-  background-color: transparent; 
-  margin-top: 0;
 }
 
 .cv-download p {
-  margin-bottom: 1.5rem;
-  font-size: 1.1rem;
+  margin-bottom: 3rem; 
 }
 
 .cv-button {
@@ -380,32 +339,41 @@ h2::after {
   color: var(--background-color);
 }
 
-/* =========================================
-   8. FOOTER
-   ========================================= */
 footer {
   text-align: center;
   padding: 3rem 0;
-  border-top: 1px solid var(--border-color);
+  border-top: none; 
   color: var(--accent-color);
   font-size: 0.9rem;
   opacity: 0.7;
+  
+  /* CENTER TO PAGE (No sidebar offset) */
+  width: 100%;
+  margin-left: 0;
+  
+  position: relative;
+  z-index: 1002; 
+}
+
+/* FORCE CENTER FOOTER TEXT */
+footer p {
+    text-align: center !important;
 }
 
 /* =========================================
-   9. SCROLL PROMPT
+   8. SCROLL PROMPT
    ========================================= */
 .scroll-prompt {
+    /* DEFAULT (DESKTOP) Positioning */
     position: absolute; 
-    bottom: 15px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
+    
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    opacity: 1;
-    transition: opacity 0.4s ease, visibility 0.4s;
     z-index: 500;
     pointer-events: none;
 }
@@ -433,7 +401,7 @@ footer {
 }
 
 /* =========================================
-   10. ACADEMIC PUBLICATIONS LIST
+   9. ACADEMIC & CONTACT LISTS
    ========================================= */
 .academic-list { list-style: none; margin-top: 2rem; }
 
@@ -454,10 +422,13 @@ footer {
 
 .academic-list .citation { font-size: 1.15rem; color: var(--text-color); }
 
-/* =========================================
-   11. CONTACT PAGE STYLES
-   ========================================= */
+/* Contact Page Styles */
 .contact-section { text-align: center; width: 100%; }
+
+/* FORCE CENTER TEXT FOR CONTACT INTRO */
+.contact-section p {
+    text-align: center !important;
+}
 
 .contact-details {
     margin: 1.5rem 0 2.5rem; 
@@ -467,90 +438,37 @@ footer {
 }
 
 .detail-item { margin-bottom: 0.8rem; font-size: 1.15rem; }
-
-.detail-item .label {
-    display: block;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--accent-color);
-    margin-bottom: 0.1rem;
-    font-weight: 600;
-}
-
+.detail-item .label { display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-color); font-weight: 600; }
 .detail-item .value { color: var(--text-color); }
-
-.detail-item .value.link {
-    text-decoration: none;
-    border-bottom: 1px solid var(--border-color);
-    transition: all 0.3s ease;
-}
-
+.detail-item .value.link { text-decoration: none; border-bottom: 1px solid var(--border-color); }
 .detail-item .value.link:hover { border-bottom-color: var(--text-color); }
 
 .social-links-container h3 { margin-bottom: 1rem; font-size: 1.6rem; }
-
-.social-links {
-    display: flex;
-    gap: 1rem; 
-    flex-wrap: wrap;
-    justify-content: center; 
-}
-
-.social-button {
-    display: inline-block;
-    padding: 0.6rem 1.8rem;
-    background-color: transparent;
-    color: var(--text-color);
-    text-decoration: none;
-    border: 1px solid var(--text-color);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 0.8rem;
-    transition: all 0.3s ease;
-}
-
-.social-button:hover {
-    background-color: var(--text-color);
-    color: var(--background-color);
-}
+.social-links { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+.social-button { padding: 0.6rem 1.8rem; background: transparent; color: var(--text-color); text-decoration: none; border: 1px solid var(--text-color); font-weight: 600; text-transform: uppercase; font-size: 0.8rem; transition: all 0.3s; }
+.social-button:hover { background: var(--text-color); color: var(--background-color); }
 
 /* =========================================
-   12. PRELOADER (CURTAIN REVEAL)
+   10. PRELOADER (Curtain Reveal)
    ========================================= */
 #preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--background-color);
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    /* NEW: Transform for curtain lift */
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: var(--background-color); z-index: 9999;
+    display: flex; justify-content: center; align-items: center;
     transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
     transform: translateY(0);
 }
+#preloader.fade-out { transform: translateY(-100%); }
 
-/* When this class is added, the curtain lifts up */
-#preloader.fade-out {
-    transform: translateY(-100%);
-}
-
+/* QUOTE STYLING */
 .quote-wrapper {
     max-width: 800px;
     padding: 0 2rem;
     text-align: center;
-    transition: opacity 0.4s ease; /* Text fade out */
+    transition: opacity 0.4s ease; 
 }
 
-.quote-wrapper.hide-text {
-    opacity: 0;
-}
+.quote-wrapper.hide-text { opacity: 0; }
 
 #quote-text {
     font-size: var(--h2-size); 
@@ -593,86 +511,156 @@ footer {
 }
 
 /* =========================================
-   13. RESPONSIVE UTILITIES
+   11. RESEARCH EXPERIENCE DRAWER (DESKTOP)
    ========================================= */
+#exp-toggle-btn {
+    position: fixed; 
+    top: 50%; 
+    right: 0; 
+    transform: translateY(-50%); /* Centered vertically */
+    
+    background-color: var(--text-color); color: var(--background-color);
+    padding: 1.2rem 0.6rem; 
+    writing-mode: vertical-rl; /* Vertical Text */
+    text-orientation: mixed;
+    font-family: var(--font-main); font-size: 1rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+    cursor: pointer; z-index: 2000; border-top-left-radius: 8px; border-bottom-left-radius: 8px;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+    
+    /* Animation waits for loader */
+    animation: bounce-right 2.5s ease-in-out 3s forwards; 
+    transition: right 0.3s ease, opacity 0.3s ease;
+}
+#exp-toggle-btn:hover { background-color: var(--accent-color); }
+body.drawer-open #exp-toggle-btn { right: -60px; }
 
-/* --- TABLETS (769px to 1024px) --- */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .logo { height: 150px; }
-  
-  /* Reset paddings for tablet sizes */
-  #about-view, 
-  #research-view, 
-  #contact-view { 
-      padding-top: 180px; 
-  }
-  
-  #education-view { padding-top: 80px; }
-  
-  .about-container { gap: 3rem; padding: 0 1rem; }
-  .profile-column { width: 220px; }
-  .portrait { width: 180px; height: 180px; }
-  nav ul { gap: 1.5rem; }
+#drawer-backdrop {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(253, 251, 247, 0.4); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    z-index: 2001; opacity: 0; visibility: hidden; transition: all 0.5s ease;
+}
+body.drawer-open #drawer-backdrop { opacity: 1; visibility: visible; }
+
+#experience-drawer {
+    position: fixed; top: 0; right: 0; width: 500px; height: 100vh;
+    background-color: var(--background-color); z-index: 2002;
+    transform: translateX(100%); transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+    box-shadow: -5px 0 30px rgba(0,0,0,0.1); padding: 4rem 3rem; overflow-y: auto; border-left: 1px solid var(--border-color);
+}
+body.drawer-open #experience-drawer { transform: translateX(0); }
+
+.drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; }
+.drawer-header h2 { margin: 0; font-size: 1.8rem; }
+.close-drawer { background: none; border: none; font-size: 2rem; cursor: pointer; color: var(--accent-color); transition: color 0.3s; }
+.close-drawer:hover { color: var(--text-color); }
+
+.exp-item { margin-bottom: 3rem; }
+.exp-role { font-size: 1.2rem; font-weight: 700; color: var(--text-color); display: block; }
+.exp-lab { font-size: 1rem; font-style: italic; color: var(--accent-color); margin-bottom: 0.5rem; display: block; }
+.exp-date { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: #888; display: block; margin-bottom: 1rem; }
+.exp-desc { font-size: 1rem; text-align: justify; }
+.exp-desc ul { list-style-type: disc; padding-left: 1.2rem; margin-top: 0.5rem; }
+.exp-desc li { margin-bottom: 0.5rem; }
+
+@keyframes bounce-right {
+    0%, 100% { right: 0; }
+    20% { right: 20px; } 
+    40% { right: 0; }     
+    60% { right: 10px; } 
+    80% { right: 0; }     
 }
 
-/* --- MOBILE (Up to 768px) --- */
-@media (max-width: 768px) {
-  .logo { height: 80px; margin-right: 0; margin-top: 0; }
+/* =========================================
+   12. RESPONSIVE UTILITIES (Mobile & Tablet)
+   ========================================= */
+
+@media (max-width: 1024px) {
   
-  /* Mobile padding reset */
-  #about-view, 
-  #research-view, 
-  #contact-view { 
-      padding-top: 120px; 
+  /* Header & Logo */
+  .header-container {
+    width: 100%; height: auto; border-right: none;
+    padding: 1.5rem 1.5rem 1rem;
+    flex-direction: row; justify-content: space-between; align-items: center;
+    background-color: transparent; gap: 0; 
   }
+  .header-container.scrolled {
+    background-color: rgba(253, 251, 247, 0.95);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    padding: 0.5rem 1.5rem; 
+  }
+  .logo-nav-wrapper { flex-direction: row; justify-content: space-between; align-items: center; }
   
-  #education-view { padding-top: 80px; }
+  .logo { width: auto; height: 180px; max-width: none; }
+  .header-container.scrolled .logo { height: 60px; }
+
+  /* Margins */
+  main { margin-left: 0; width: 100%; }
+  footer { margin-left: 0; width: 100%; }
   
+  /* NARROWER CONTENT MARGINS (More side padding) */
   .full-screen-section { 
       min-height: auto; 
-      padding-bottom: 50px; 
-      justify-content: flex-start;
+      justify-content: flex-start; 
+      padding: 100px 2.5rem 50px; /* 2.5rem side padding */
+  }
+  .content-container {
+      padding: 0 2.5rem; /* Ensure inner containers also have margins */
   }
 
-  .hamburger { display: block; margin-top: 0; }
+  #about-view, #research-view, #contact-view { padding-top: 220px; }
+  #education-view { padding-top: 80px; }
   
-  .logo-nav-wrapper { 
-      align-items: center; 
-      justify-content: space-between; 
+  .scroll-prompt { display: none; }
+
+  /* --- MOBILE DRAWER ADJUSTMENTS --- */
+  
+  /* 1. Button Logic: Vertical, shift UP to 130px (Closer to header) */
+  #exp-toggle-btn { 
+    top: 160px; /* Shifted UP from 170px */
+    right: 0; 
+    
+    transform: none; 
+    writing-mode: vertical-rl; 
+    text-orientation: mixed;
+    
+    padding: 1rem 0.5rem; 
+    font-size: 0.9rem;
+    
+    animation: bounce-right 2.5s ease-in-out 2s forwards;
   }
-  
+
+  /* 2. Hide button on scroll */
+  #exp-toggle-btn.scroll-hidden {
+      opacity: 0; 
+      visibility: hidden; 
+      right: -50px; 
+  }
+
+  /* 3. Drawer: Full width but slides from RIGHT */
+  #experience-drawer { 
+      width: 85vw; 
+      padding: 3rem 1.5rem; 
+  }
+
+  /* Hamburger & Nav */
+  .hamburger { display: block; cursor: pointer; z-index: 1001; }
+  .bar { display: block; width: 25px; height: 2px; margin: 6px auto; background-color: var(--text-color); transition: all 0.3s ease; }
+  .hamburger.active .bar:nth-child(2) { opacity: 0; }
+  .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
   nav {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100vh;
-      background-color: var(--background-color);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none; 
-      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-      z-index: 1000; 
-      padding-top: 0;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    background-color: var(--background-color);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transition: all 0.4s ease; z-index: 1000; margin-top: 0;
   }
-
+  
   nav.active { opacity: 1; visibility: visible; pointer-events: auto; }
-  
-  nav ul { 
-      flex-direction: column; 
-      gap: 3rem; 
-      font-size: 1.5rem; 
-      text-align: center;
-  }
+  nav ul { gap: 3rem; font-size: 1.5rem; }
 
-  .about-container { flex-direction: column; gap: 2rem; text-align: center; }
-  .profile-column { width: 100%; margin-bottom: 1rem; }
-  .affiliation-logos { flex-direction: row; justify-content: center; gap: 2rem;}
-  
-  h2::after { margin-left: auto; margin-right: auto; }
-  .about-content h2::after { margin-left: auto; margin-right: auto; }
-  .content-container { padding: 0 1.5rem; }
-  .scroll-prompt { bottom: 20px; }
+  .about-container { flex-direction: column; gap: 2rem; }
+  .profile-column { width: 100%; }
+  .affiliation-logos { flex-direction: row; gap: 2rem; }
 }

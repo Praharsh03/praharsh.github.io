@@ -517,7 +517,7 @@ footer {
 }
 
 /* =========================================
-   12. PRELOADER & ANIMATIONS
+   12. PRELOADER (CURTAIN REVEAL)
    ========================================= */
 #preloader {
     position: fixed;
@@ -530,14 +530,27 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: opacity 1s ease-in-out, visibility 1s;
-    opacity: 1;
-    visibility: visible;
+    
+    /* NEW: Transform for curtain lift */
+    transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+    transform: translateY(0);
 }
 
-#preloader.fade-out { opacity: 0; visibility: hidden; }
+/* When this class is added, the curtain lifts up */
+#preloader.fade-out {
+    transform: translateY(-100%);
+}
 
-.quote-wrapper { max-width: 800px; padding: 0 2rem; text-align: center; }
+.quote-wrapper {
+    max-width: 800px;
+    padding: 0 2rem;
+    text-align: center;
+    transition: opacity 0.4s ease; /* Text fade out */
+}
+
+.quote-wrapper.hide-text {
+    opacity: 0;
+}
 
 #quote-text {
     font-size: var(--h2-size); 

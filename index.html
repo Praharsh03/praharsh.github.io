@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Praharsh Tiwari | Home</title>
+    <title>Praharsh Tiwari | Hypersonics & Experimental Aerodynamics</title>
     <meta name="description" content="Portfolio of Praharsh Tiwari, Ph.D. student at FCAAP/FSU specializing in experimental aerodynamics, active flow control, and high-speed regimes.">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
@@ -84,7 +84,7 @@
                         </div>
                         <div class="timeline-item">
                             <h3>Bachelor of Technology (B.Tech.) in Mechanical Engineering</h3>
-                            <p class="institution">Shiv Nadar Institution of Eminence (deemed to be University), Delhi-NCR, India</p>
+                            <p class="institution">Shiv Nadar University, Delhi-NCR, India</p>
                             <p class="duration">August 2021 - May 2025</p>
                         </div>
                     </div>
@@ -93,7 +93,7 @@
             <section class="cv-section">
                 <div class="content-container">
                     <div class="cv-download">
-                        <p>For a complete overview of my qualifications, please view/download my CV:</p>
+                        <p>For a complete overview of my qualifications, please download my CV:</p>
                         <a href="docs/cv_praharsh_tiwari.pdf" class="cv-button" target="_blank">Download CV</a>
                     </div>
                 </div>
@@ -152,16 +152,17 @@
             }, 100); 
         }, { passive: true });
 
+        // --- NEW QUOTES SECTION ---
         const preloader = document.getElementById('preloader');
         if (sessionStorage.getItem('visited')) {
             preloader.style.display = 'none';
         } else {
             const quotes = [
-                { text: "Scientists investigate that which already is; Engineers create that which has never been.", author: "Theodore von Kármán" },
-                { text: "Turbulence is the most important unsolved problem of classical physics.", author: "Richard Feynman" },
-                { text: "Once you have tasted flight, you will forever walk the earth with your eyes turned skyward.", author: "Leonardo da Vinci" },
-                { text: "The machine does not isolate man from the great problems of nature but plunges him more deeply into them.", author: "Antoine de Saint-Exupéry" },
-                { text: "Aerodynamics is the art of making air do what you want it to do.", author: "Unknown" }
+                { text: "The problems of high-speed flight are not merely aerodynamic, but thermodynamic.", author: "Theodore von Kármán" },
+                { text: "Shock waves are nature's way of telling you that information cannot travel fast enough.", author: "Gas Dynamics" },
+                { text: "At hypersonic speeds, the air ceases to be a passive medium and becomes a reactive participant.", author: "High-Enthalpy Physics" },
+                { text: "The sound barrier wasn't a brick wall, it was a block of cheese.", author: "Chuck Yeager" },
+                { text: "We do not just fly through the air; at Mach 5, we burn through it.", author: "Hypersonics" }
             ];
             const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
             const quoteContainer = document.getElementById('quote-text');

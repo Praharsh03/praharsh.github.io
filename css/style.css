@@ -11,7 +11,6 @@
   --font-main: 'Cormorant Garamond', serif;
   
   /* FLUID TYPOGRAPHY VARIABLES */
-  /* Adjusted: Starts smaller (1.0rem) for mobile screens */
   --h2-size: clamp(1.8rem, 4vw, 2.4rem); 
   --p-size: clamp(1.0rem, 2.5vw, 1.25rem);
 }
@@ -50,13 +49,15 @@ body {
     padding-bottom: 50px;
 }
 
-/* SPECIAL: About View */
-#about-view {
-    /* REDUCED to 220px to move photo/text higher up */
-    padding-top: 220px; 
+/* SPECIAL: Views that must clear the HUGE 250px LOGO */
+#about-view, 
+#research-view, 
+#contact-view {
+    /* Desktop: Logo is 250px. We use 260px to clear it comfortably. */
+    padding-top: 260px; 
 }
 
-/* SPECIAL: Education View */
+/* SPECIAL: Education View (Logo is gone/shrunk here) */
 #education-view {
     padding-top: 80px; 
 }
@@ -290,7 +291,6 @@ h2::after {
 .about-content h2 { margin-top: 0; }
 
 .about-content p {
-  /* ENSURES TEXT IS ALWAYS JUSTIFIED */
   text-align: justify;
   text-justify: inter-word;
   margin-bottom: 1.5rem;
@@ -587,8 +587,13 @@ footer {
 @media (min-width: 769px) and (max-width: 1024px) {
   .logo { height: 150px; }
   
-  /* Reset special paddings for tablet sizes */
-  #about-view { padding-top: 180px; }
+  /* Reset paddings for tablet sizes */
+  #about-view, 
+  #research-view, 
+  #contact-view { 
+      padding-top: 180px; 
+  }
+  
   #education-view { padding-top: 80px; }
   
   .about-container { gap: 3rem; padding: 0 1rem; }
@@ -601,7 +606,13 @@ footer {
 @media (max-width: 768px) {
   .logo { height: 80px; margin-right: 0; margin-top: 0; }
   
-  #about-view { padding-top: 120px; }
+  /* Mobile padding reset */
+  #about-view, 
+  #research-view, 
+  #contact-view { 
+      padding-top: 120px; 
+  }
+  
   #education-view { padding-top: 80px; }
   
   .full-screen-section { 
@@ -646,9 +657,6 @@ footer {
   .about-container { flex-direction: column; gap: 2rem; text-align: center; }
   .profile-column { width: 100%; margin-bottom: 1rem; }
   .affiliation-logos { flex-direction: row; justify-content: center; gap: 2rem;}
-  
-  /* MAINTAIN JUSTIFICATION ON MOBILE */
-  /* Previously this was overridden to 'left', now it inherits 'justify' from above */
   
   h2::after { margin-left: auto; margin-right: auto; }
   .about-content h2::after { margin-left: auto; margin-right: auto; }
